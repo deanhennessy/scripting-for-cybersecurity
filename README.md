@@ -1,4 +1,4 @@
 # scripting-for-cybersecurity
-# scriptinh-for-cybercrime
+# scripting-for-cybercrime
 
 ## Labs
