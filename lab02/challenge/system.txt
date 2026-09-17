@@ -1,0 +1,3 @@
+hostname: codespaces-8681b5
+Current shell: /bin/bash
+Home directory: /workspaces/scripting-for-cybersecurity/lab02/challenge

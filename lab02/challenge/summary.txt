@@ -1,0 +1,1 @@
+Cybersecurity CLI Reports echo User:  echo Host:  echo Directory: /workspaces/scripting-for-cybersecurity/lab02/challenge echo Python: /home/codespace/.python/current/bin/python3 echo Python filenames found: 0

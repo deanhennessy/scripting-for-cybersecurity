@@ -1,0 +1,1 @@
+Home directory: /workspaces/scripting-for-cybersecurity/lab02/challenge
