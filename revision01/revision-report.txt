@@ -1,0 +1,8 @@
+Linux CLI Revision Report
+User: codespace
+Host: codespaces-8681b5
+Directory: /workspaces/scripting-for-cybersecurity/revision01
+Shell: /bin/bash
+Python: /home/codespace/.python/current/bin/python
+Environment variables 92
+Python-related filenames 7
