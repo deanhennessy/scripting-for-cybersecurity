@@ -1,0 +1,26 @@
+File Triage Report
+
+Total Files: 24
+Total Directories: 9
+Python Files: 0
+Python Files: 2
+Shell Scripts: 1
+Log Files: 4
+Configuration Files: 3
+Empty Files: 1
+Archives: 1
+
+Files Containing "Admin":
+./logs/auth.log
+./logs/access.log
+./backups/users.old
+./evidence/notes.txt
+
+Detected File Types in Evidence:
+evidence/suspicious.dat
+evidence/notes.txt
+evidence/empty.bin
+evidence/image.png
+evidence/passwords.txt
+evidence/archive.zip
+evidence/readme.md
