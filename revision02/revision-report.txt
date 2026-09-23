@@ -1,0 +1,19 @@
+Labs 3 and 4 Revisoin Report
+
+Authenication Log Entries: 184
+Failed Password Events: 124
+Accepted Password Events: 57
+Unique Failed Login IPs: 5
+Most Frequent Failed Login IP: 203.0.113.10 (51 attempts)
+
+Web Requests:
+403 Responses: 34
+404 Responses: 37
+
+Lab 4 Files: 22
+Lab 4 Directories: 9
+Python Files: 2
+Shell Scripts: 1
+Log Files: 4
+Configuration Files: 3
+Empty Files: 1
