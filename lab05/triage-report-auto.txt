@@ -1,0 +1,47 @@
+Triage Report (Automated)
+Analyst: dean
+Case Reference: 619
+Date: Fri Oct  2 08:54:27 UTC 2026
+
+Total Files: 24
+Total Directories: 8
+Python Files: 2
+Shell Scripts: 1
+Log Files: 4
+Configuration Files: 3
+Empty Files: 1
+Archives: 1
+
+Files containing 'admin':
+case/logs/auth.log
+case/logs/access.log
+case/backups/users.old
+case/evidence/notes.txt
+
+Detected file types:
+case/config-new.txt:          ASCII text
+case/logs/firewall.log:       ASCII text
+case/logs/auth.log:           ASCII text
+case/logs/access.log:         ASCII text
+case/nested/archive/old.log:  ASCII text
+case/config-changes.txt:      unified diff output, ASCII text
+case/scripts/report.py:       ASCII text
+case/scripts/scan.py:         ASCII text
+case/scripts/check.sh:        Bourne-Again shell script, ASCII text executable
+case/configs/app.conf:        ASCII text
+case/configs/server.conf:     ASCII text
+case/configs/backup.conf:     ASCII text
+case/backups/users.old:       ASCII text
+case/backups/config.old:      ASCII text
+case/evidence/suspicious.dat: ELF, unknown class 154
+case/evidence/notes.txt:      ASCII text
+case/evidence/empty.bin:      empty
+case/evidence/image.png:      PNG image data, 1 x 1, 8-bit/color RGBA, non-interlaced
+case/evidence/passwords.txt:  ASCII text
+case/evidence/archive.zip:    Zip archive data, at least v2.0 to extract, compression method=deflate
+case/evidence/readme.md:      ASCII text
+case/config-old.txt:          ASCII text
+case/triage-report.txt:       ASCII text
+case/docs/inventory.txt:      ASCII text
+
+Scripts (Python + shell): 3

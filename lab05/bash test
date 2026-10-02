@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Testing lowercase conversation"
+VAR="Hello"
+echo "${VAR,,}"' > bash_test.sh
