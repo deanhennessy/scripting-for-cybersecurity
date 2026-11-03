@@ -1,0 +1,16 @@
+
+Lab 10 - Part 7 answers
+
+1. The final exit code was ___ . It (matches / does not match) the report: the report
+   shows ___ total IOC matches, and the exit code is 1 when that is above 0.
+
+2. ___ logs were scanned. Per-file IOC counts: auth.log ___ , access.log ___ ,
+   firewall.log ___ , nested/archive/old.log ___ .
+
+3. The early break triggered for: ___ . It (did / did not) cause a missed match.
+   Comparing with check_iocs.sh, the full counts were ___ , so the break only
+   capped the count at 3 and did not change whether a match was found.
+
+4. A meaningful exit code matters because an automated nightly run has no one reading
+   the output, so the scheduler or monitoring system relies on the exit code alone
+   to know whether to raise an alert.

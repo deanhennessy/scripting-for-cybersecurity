@@ -1,0 +1,24 @@
+File: case/logs/firewall.log
+  Lines: 31
+  Failed logins: 0
+  IOC matches: 3
+  NOTE: check stopped early after 3 matches
+
+File: case/logs/auth.log
+  Lines: 31
+  Failed logins: 45
+  IOC matches: 3
+  NOTE: check stopped early after 3 matches
+
+File: case/logs/access.log
+  Lines: 31
+  Failed logins: 0
+  IOC matches: 2
+
+File: case/nested/archive/old.log
+  Lines: 31
+  Failed logins: 0
+  IOC matches: 0
+
+Logs scanned: 4
+Total IOC matches: 8
