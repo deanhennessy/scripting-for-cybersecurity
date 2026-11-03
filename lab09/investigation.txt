@@ -1,0 +1,11 @@
+Lab 9 - Investigation answers
+
+1. Most distinct indicators: ___ ; most indicator lines: ___ . The answers can differ
+   because distinct counts different indicators once each, while line counts count
+   every log line containing any indicator.
+2. Flagged files: ___ (reason: extension says ___ but content is ___ ).
+3. Not surveyed: case/nested/archive/old.log. The globs only go one level below
+   case, and * does not descend into subdirectories.
+4. No change needed: case/logs/* is expanded each time the script runs, so a new
+   vpn.log is picked up automatically.
+5. Summary: ___
