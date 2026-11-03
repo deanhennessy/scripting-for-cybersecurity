@@ -2,9 +2,10 @@
 
 read -p "Enter yes or no: " ANSWER
 
-if [ "$ANSWER" = "yes" ]; then
+ANSWER_LOWER="${ANSWER,,}"
+if [ "$ANSWER_LOWER" = "yes" ]; then
     echo "Confirmed."
-elif [ "$ANSWER" = "no" ]; then
+elif [ "$ANSWER_LOWER" = "no" ]; then
     echo "Cancelled."
 else
     echo "Unrecognised answer: '$ANSWER'"

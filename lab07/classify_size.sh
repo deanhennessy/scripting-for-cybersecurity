@@ -5,12 +5,17 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
+SMALL_LIMIT=10
+MEDIUM_LIMIT=70
+
 FILE=$1
 LINES=$(wc -l < "$FILE")
 
-if [ "$LINES" -lt 10 ]; then
+if [ "$LINES" -eq 0 ]; then
+    echo "$FILE is EMPTY ($LINES lines)"
+elif [ "$LINES" -lt "$SMALL_LIMIT" ]; then
     echo "$FILE is SMALL ($LINES lines)"
-elif [ "$LINES" -lt 70 ]; then
+elif [ "$LINES" -lt "$MEDIUM_LIMIT" ]; then
     echo "$FILE is MEDIUM ($LINES lines)"
 else
     echo "$FILE is LARGE ($LINES lines)"

@@ -13,6 +13,8 @@ elif [ "$COUNT" -lt 5 ]; then
     echo "Risk: LOW ($COUNT failed attempts)"
 elif [ "$COUNT" -lt 15 ]; then
     echo "Risk: MEDIUM ($COUNT failed attempts)"
-else
+elif [ "$COUNT" -lt 30 ]; then
     echo "Risk: HIGH ($COUNT failed attempts)"
+else
+    echo "Risk: CRITICAL ($COUNT failed attempts)"
 fi
