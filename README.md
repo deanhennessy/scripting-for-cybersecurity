@@ -1,5 +1,4 @@
 # scripting-for-cybersecurity
-# scripting-for-cybercrime
 
 ## Labs
 - Lab 01 - Development Environment
