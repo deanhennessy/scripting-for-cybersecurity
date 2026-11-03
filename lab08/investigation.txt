@@ -1,0 +1,398 @@
+IP               auth.log   access.log   firewall.log
+203.0.113.10        15          21             1    
+198.51.100.24       14          19             1
+203.0.113.200       5         not found        1
+
+Exit code check
+
+$ ./check_ip.sh case/logs/auth.log 203.0.113.10
+FOUND: 203.0.113.10 appears 12 time(s) in case/logs/auth.log
+exit: 0
+
+$ ./check_ip.sh case/logs/auth.log 203.0.113.99
+NOT FOUND: 203.0.113.99 does not appear in case/logs/auth.log
+exit: 3
+
+$ ./check_ip.sh case/logs/missing.log 203.0.113.10
+Error: 'case/logs/missing.log' not found
+exit: 2
+Exercise 3.4
+
+$ grep -c "203.0.113.1" case/logs/auth.log
+18
+
+$ ./check_ip.sh case/logs/auth.log 203.0.113.1
+NOT FOUND: 203.0.113.1 does not appear in case/logs/auth.log
+exit: 3
+
+Explanation:
+grep -c "203.0.113.1" treats the text as a regular expression and matches it
+anywhere in a line. The dots match any character, and 203.0.113.1 is a substring
+of longer addresses such as 203.0.113.10 and 203.0.113.100. So it counts lines
+for other IPs as well.
+check_ip.sh uses grep -wF. -F treats the dots as literal dots, and -w requires
+a whole-word match, so only the exact address 203.0.113.1 counts. That address
+is not actually in the log, so the script reports NOT FOUND.
+Exercise 3.5
+$ ./ip_decision.sh 198.51.100.24
+Decision: 198.51.100.24 is known to the firewall — check what action was taken.
+
+$ ./ip_decision.sh 198.51.100.77
+Decision: the firewall never saw 198.51.100.77.
+
+Exercise 4.1 - check_username.sh
+
+$ ./check_username.sh case/logs/auth.log root
+root: 10 failed and 0 accepted login(s) — investigate
+exit: 0
+
+$ ./check_username.sh case/logs/auth.log admin
+admin: 17 failed and 0 accepted login(s) — investigate
+exit: 0
+
+$ ./check_username.sh case/logs/auth.log alice
+alice: 6 successful login(s) only
+exit: 0
+
+$ ./check_username.sh case/logs/auth.log charlie
+charlie: 1 successful login(s) only
+exit: 0
+
+$ ./check_username.sh case/logs/auth.log frank
+frank: no activity found
+exit: 3
+
+
+Exercise 4.2
+The first if block checks whether any line mentions "for <username> ". The ! negates
+grep -q, so the block runs when there is NO activity for that user. It exits early
+because there is nothing to count, and it reports "no activity" with its own exit
+code (3), which tells the caller this is not an error.
+
+Exercise 4.3
+The trailing space makes the pattern match the whole username. Without it,
+"for admin" would also match "for administrator" or "for admin2", and "for root"
+would match "for rootkit", so the counts would include the wrong accounts.
+Exercise 4.4 - with HIGH RISK
+./check_username.sh: line 45: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')
+
+Exercise 4.2
+The first if block checks whether any line mentions "for <username> ". The ! negates
+grep -q, so the block runs when there is NO activity for that user. It exits early
+because there is nothing to count, and it reports "no activity" with its own exit
+code (3), which tells the caller this is not an error.
+
+Exercise 4.3
+The trailing space makes the pattern match the whole username. Without it,
+"for admin" would also match "for administrator" or "for admin2", and "for root"
+would match "for rootkit", so the counts would include the wrong accounts.
+EOF#!/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <logfile> <username>" >&2
+    exit 1
+fi
+
+LOGFILE=$1
+USERNAME=$2
+
+if [ ! -f "$LOGFILE" ]; then
+    echo "Error: '$LOGFILE' not found" >&2
+    exit 2
+fi
+
+if ! grep -q "for $USERNAME " "$LOGFILE"; then
+    echo "$USERNAME: no activity found"
+    exit 3
+fi
+
+FAILS=$(grep -c "Failed password for $USERNAME " "$LOGFILE")
+ACCEPTS=$(grep -c "Accepted password for $USERNAME " "$LOGFILE")
+
+if [ "$FAILS" -gt 0 ]; then
+    echo "$USERNAME: $FAILS failed and $ACCEPTS accepted login(s) — investigate"
+    if [ "$FAILS" -gt 5 ]; then
+        echo "$USERNAME: HIGH RISK"
+    fi
+else
+    echo "$USERNAME: $ACCEPTS successful login(s) only"
+fi
+
+exit 0
+./check_username.sh: line 45: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')
+
+Exercise 4.2
+The first if block checks whether any line mentions "for <username> ". The ! negates
+grep -q, so the block runs when there is NO activity for that user. It exits early
+because there is nothing to count, and it reports "no activity" with its own exit
+code (3), which tells the caller this is not an error.
+
+Exercise 4.3
+The trailing space makes the pattern match the whole username. Without it,
+"for admin" would also match "for administrator" or "for admin2", and "for root"
+would match "for rootkit", so the counts would include the wrong accounts.
+EOF#!/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <logfile> <username>" >&2
+    exit 1
+fi
+
+LOGFILE=$1
+USERNAME=$2
+
+if [ ! -f "$LOGFILE" ]; then
+    echo "Error: '$LOGFILE' not found" >&2
+    exit 2
+fi
+
+if ! grep -q "for $USERNAME " "$LOGFILE"; then
+    echo "$USERNAME: no activity found"
+    exit 3
+fi
+
+FAILS=$(grep -c "Failed password for $USERNAME " "$LOGFILE")
+ACCEPTS=$(grep -c "Accepted password for $USERNAME " "$LOGFILE")
+
+if [ "$FAILS" -gt 0 ]; then
+    echo "$USERNAME: $FAILS failed and $ACCEPTS accepted login(s) — investigate"
+    if [ "$FAILS" -gt 5 ]; then
+        echo "$USERNAME: HIGH RISK"
+    fi
+else
+    echo "$USERNAME: $ACCEPTS successful login(s) only"
+fi
+
+exit 0
+./check_username.sh: line 45: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')
+
+Exercise 4.2
+The first if block checks whether any line mentions "for <username> ". The ! negates
+grep -q, so the block runs when there is NO activity for that user. It exits early
+because there is nothing to count, and it reports "no activity" with its own exit
+code (3), which tells the caller this is not an error.
+
+Exercise 4.3
+The trailing space makes the pattern match the whole username. Without it,
+"for admin" would also match "for administrator" or "for admin2", and "for root"
+would match "for rootkit", so the counts would include the wrong accounts.
+EOF#!/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <logfile> <username>" >&2
+    exit 1
+fi
+
+LOGFILE=$1
+USERNAME=$2
+
+if [ ! -f "$LOGFILE" ]; then
+    echo "Error: '$LOGFILE' not found" >&2
+    exit 2
+fi
+
+if ! grep -q "for $USERNAME " "$LOGFILE"; then
+    echo "$USERNAME: no activity found"
+    exit 3
+fi
+
+FAILS=$(grep -c "Failed password for $USERNAME " "$LOGFILE")
+ACCEPTS=$(grep -c "Accepted password for $USERNAME " "$LOGFILE")
+
+if [ "$FAILS" -gt 0 ]; then
+    echo "$USERNAME: $FAILS failed and $ACCEPTS accepted login(s) — investigate"
+    if [ "$FAILS" -gt 5 ]; then
+        echo "$USERNAME: HIGH RISK"
+    fi
+else
+    echo "$USERNAME: $ACCEPTS successful login(s) only"
+fi
+
+exit 0
+./check_username.sh: line 45: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')
+
+Exercise 4.2
+The first if block checks whether any line mentions "for <username> ". The ! negates
+grep -q, so the block runs when there is NO activity for that user. It exits early
+because there is nothing to count, and it reports "no activity" with its own exit
+code (3), which tells the caller this is not an error.
+
+Exercise 4.3
+The trailing space makes the pattern match the whole username. Without it,
+"for admin" would also match "for administrator" or "for admin2", and "for root"
+would match "for rootkit", so the counts would include the wrong accounts.
+EOF#!/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <logfile> <username>" >&2
+    exit 1
+fi
+
+LOGFILE=$1
+USERNAME=$2
+
+if [ ! -f "$LOGFILE" ]; then
+    echo "Error: '$LOGFILE' not found" >&2
+    exit 2
+fi
+
+if ! grep -q "for $USERNAME " "$LOGFILE"; then
+    echo "$USERNAME: no activity found"
+    exit 3
+fi
+
+FAILS=$(grep -c "Failed password for $USERNAME " "$LOGFILE")
+ACCEPTS=$(grep -c "Accepted password for $USERNAME " "$LOGFILE")
+
+if [ "$FAILS" -gt 0 ]; then
+    echo "$USERNAME: $FAILS failed and $ACCEPTS accepted login(s) — investigate"
+    if [ "$FAILS" -gt 5 ]; then
+        echo "$USERNAME: HIGH RISK"
+    fi
+else
+    echo "$USERNAME: $ACCEPTS successful login(s) only"
+fi
+
+exit 0
+./check_username.sh: line 45: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')
+
+Exercise 4.2
+The first if block checks whether any line mentions "for <username> ". The ! negates
+grep -q, so the block runs when there is NO activity for that user. It exits early
+because there is nothing to count, and it reports "no activity" with its own exit
+code (3), which tells the caller this is not an error.
+
+Exercise 4.3
+The trailing space makes the pattern match the whole username. Without it,
+"for admin" would also match "for administrator" or "for admin2", and "for root"
+would match "for rootkit", so the counts would include the wrong accounts.
+EOF#!/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <logfile> <username>" >&2
+    exit 1
+fi
+
+LOGFILE=$1
+USERNAME=$2
+
+if [ ! -f "$LOGFILE" ]; then
+    echo "Error: '$LOGFILE' not found" >&2
+    exit 2
+fi
+
+if ! grep -q "for $USERNAME " "$LOGFILE"; then
+    echo "$USERNAME: no activity found"
+    exit 3
+fi
+
+FAILS=$(grep -c "Failed password for $USERNAME " "$LOGFILE")
+ACCEPTS=$(grep -c "Accepted password for $USERNAME " "$LOGFILE")
+
+if [ "$FAILS" -gt 0 ]; then
+    echo "$USERNAME: $FAILS failed and $ACCEPTS accepted login(s) — investigate"
+    if [ "$FAILS" -gt 5 ]; then
+        echo "$USERNAME: HIGH RISK"
+    fi
+else
+    echo "$USERNAME: $ACCEPTS successful login(s) only"
+fi
+
+exit 0
+Exercise 4.5 - login_sources.sh
+
+$ ./login_sources.sh alice
+alice logged in from 4 different address(es):
+192.168.1.20
+192.168.1.35
+192.168.1.40
+192.168.1.55
+
+$ ./login_sources.sh bob
+bob logged in from 3 different address(es):
+192.168.1.20
+192.168.1.35
+192.168.1.40
+
+$ ./login_sources.sh eve
+eve logged in from 3 different address(es):
+192.168.1.20
+192.168.1.35
+192.168.1.40
+
+$ ./login_sources.sh charlie
+charlie logged in from 1 different address(es):
+192.168.1.55
+
+
+Exercise 4.5 answer
+The account that logged in from the most addresses was ____ (___ addresses).
+It (is / is not) one of the accounts whose password appears in plain text in
+case/evidence/passwords.txt.
+
+Exercise 5
+1. Unquoted empty variable: [ -f $FILE ] becomes [ -f ], which tests whether the
+   string "-f" is non-empty, so it is true. The quoted version is correctly false.
+2. Reproduced "guard clause exits but no message appears": exit placed before echo,
+   so the script stopped with exit code 1 and printed nothing.
+3. No. grep -w stops 203.0.113.100 matching (word boundary), but the unescaped dots
+   in the regex still match any character, so 203x0y113z10 still matches. -F is
+   also needed so the dots are treated as literal dots.
+$ ./investigate.sh case/logs/auth.log 198.51.100.77
+Type: IP address
+Occurrences in case/logs/auth.log: 8
+Failed password events: 8
+Risk: HIGH
+Firewall entries: none
+IOC list: not listed
+Result: '198.51.100.77' FOUND in case/logs/auth.log
+exit: 0
+
+$ ./investigate.sh case/logs/auth.log 203.0.113.200
+Type: IP address
+Occurrences in case/logs/auth.log: 5
+Failed password events: 5
+Risk: HIGH
+Firewall entries:
+BLOCK 203.0.113.200 -> 10.0.0.30:3389
+IOC list: LISTED
+Result: '203.0.113.200' FOUND in case/logs/auth.log
+exit: 0
+
+$ ./investigate.sh case/logs/access.log 203.0.113.77
+Type: IP address
+Occurrences in case/logs/access.log: 12
+Failed password events: 0
+Risk: LOW
+Firewall entries: none
+IOC list: not listed
+Result: '203.0.113.77' FOUND in case/logs/access.log
+exit: 0
+
+$ ./investigate.sh case/logs/auth.log admin
+Type: username
+Failed logins: 17
+Accepted logins: 0
+Account status: LEGACY
+Result: 'admin' FOUND in case/logs/auth.log
+exit: 0
+
+$ ./investigate.sh case/logs/auth.log alice
+Type: username
+Failed logins: 0
+Accepted logins: 6
+Account status: CURRENT
+Result: 'alice' FOUND in case/logs/auth.log
+exit: 0
+
+$ ./investigate.sh case/logs/missing.log admin
+Error: 'case/logs/missing.log' does not exist
+exit: 2
+
+
+Investigation questions
+1. 198.51.100.77: IOC list ___ ; firewall log ___ . Relying on the IOC list alone
+   misses attackers that have not been reported yet, so local log analysis is needed.
+2. 203.0.113.200: the firewall blocked it on ___ (port ___ ); auth.log shows it
+   attacking ___ . Port 3389 is RDP.
+3. 203.0.113.77: its requests were ___ , which indicates ___ .
