@@ -14,7 +14,9 @@ elif [ -d "$TARGET" ]; then
     echo "$TARGET is a directory"
 elif [ -f "$TARGET" ]; then
     echo "$TARGET is a regular file"
-    if [ -s "$TARGET" ]; then
+    if [ ! -r "$TARGET" ]; then
+        echo "  WARNING: it exists but is NOT readable by you"
+    elif [ -s "$TARGET" ]; then
         echo "  and it is not empty ($(wc -c < "$TARGET") bytes)"
     else
         echo "  but it is empty"
