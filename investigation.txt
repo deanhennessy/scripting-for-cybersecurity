@@ -1,0 +1,19 @@
+Lab 9 - Investigation answers
+
+1. The log with the most distinct indicators is ___ (___ indicators). The log with
+   the most indicator lines is ___ (___ lines). The answers can differ because
+   "distinct" counts each indicator once, while "lines" counts every log line that
+   contains any indicator, so one frequently repeated IP inflates the line count
+   without adding to the distinct count.
+
+2. Flagged files: ___ . Reason: the extension suggests ___ but the detected content
+   is ___ .
+
+3. The survey did not include case/nested/archive/old.log. The globs only covered
+   case/evidence/*, case/scripts/* and case/logs/*, and * does not descend into
+   subdirectories, so a file in case/nested/archive/ was never matched.
+
+4. No, file_survey.sh would not need to change. case/logs/* is expanded each time
+   the script runs, so vpn.log would be included automatically.
+
+5. ___
