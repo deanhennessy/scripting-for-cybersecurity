@@ -11,3 +11,5 @@
 - Lab 08 - File Tests and Applied Decision-Making
 - Lab 09 - For Loops and Repetitive Security Tasks
 - Lab 10 - While Loops and Safer Iteration
+- Lab 11C - Variables for Python
+- Lab 12A - Python Tasks
