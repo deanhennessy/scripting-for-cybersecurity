@@ -16,3 +16,4 @@
 - Lab 12B - Lists and Conditionals in Python
 - Lab 13A - Bitwise Operators and Functions in Python
 - Lab 13B - Comparing Lists in Python
+- Lab 14A - Dictionaries in Python
