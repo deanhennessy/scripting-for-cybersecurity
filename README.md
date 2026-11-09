@@ -14,3 +14,4 @@
 - Lab 11C - Variables for Python
 - Lab 12A - Python Input, Conditionals and Loops
 - Lab 12B - Lists and Conditionals in Python
+- Lab13A - Bitwise Operators and Functions in Python
