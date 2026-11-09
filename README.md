@@ -15,3 +15,4 @@
 - Lab 12A - Python Input, Conditionals and Loops
 - Lab 12B - Lists and Conditionals in Python
 - Lab 13A - Bitwise Operators and Functions in Python
+- Lab 13B - Comparing Lists in Python
