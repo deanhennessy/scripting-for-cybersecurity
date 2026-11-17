@@ -17,3 +17,4 @@
 - Lab 13A - Bitwise Operators and Functions in Python
 - Lab 13B - Comparing Lists in Python
 - Lab 14A - Dictionaries in Python
+- Lab 14B - Word Positions and Sets in Python
